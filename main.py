@@ -3,13 +3,6 @@ import configparser
 from PIL import Image
 
 def crop_tileset(config_file):
-    """
-    Разрезает тайлсет на отдельные тайлы и сохраняет их в папку.
-
-    Args:
-        config_file (str): Путь к INI файлу конфигурации.
-    """
-
     config = configparser.ConfigParser()
     config.read(config_file)
 
@@ -46,7 +39,7 @@ def crop_tileset(config_file):
                     if transparent_color_rgb:
                       tile = make_transparent(tile, transparent_color_rgb)
 
-                    tile_filename = os.path.join(output_folder, f"{tile_count}.png") # Убрали форматирование для ведущих нулей
+                    tile_filename = os.path.join(output_folder, f"{tile_count}.png")
                     tile.save(tile_filename)
                     tile_count += 1
             print(f"   Сохранено {tile_count-1} тайлов в {output_folder}")
@@ -68,12 +61,12 @@ def make_transparent(image, transparent_color_rgb):
     for x in range(width):
         for y in range(height):
             if pixels[x, y][:3] == transparent_color_rgb:
-                pixels[x, y] = (0, 0, 0, 0)  # Делаем пиксель полностью прозрачным
+                pixels[x, y] = (0, 0, 0, 0)
 
     return image
 
 if __name__ == "__main__":
-    config_file = "config.ini"  # Имя файла с конфигурацией
+    config_file = "config.ini"
     if not os.path.exists(config_file):
         print(f"Ошибка: Файл конфигурации не найден: {config_file}")
     else:
